@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "beatmaker",
-    "slug": "beatmaker",
+    "name": "beatmaker-app",
+    "slug": "beatmaker-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
