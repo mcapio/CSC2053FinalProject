@@ -2,8 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { Audio } from 'expo-av';
+import { SoundList } from './SoundList';
 
 export default function App() {
+
   const soundData = [
     { sound: require('./assets/soundpack/3_10_120bpm_Em.wav'), label: 'Sound 1' },
     { sound: require('./assets/soundpack/4_1_160bpm_Cm.wav'), label: 'Sound 2' },
@@ -62,6 +64,9 @@ export default function App() {
       </TouchableOpacity>
     </View>
   );
+  
+  
+
 }
 
 const styles = StyleSheet.create({
