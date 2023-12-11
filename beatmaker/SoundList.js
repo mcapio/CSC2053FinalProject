@@ -4,20 +4,20 @@ import { Audio } from 'expo-av';
 
 export const SoundList = () => {
  const soundData = [
-    { sound: require('./assets/soundpack/3_10_120bpm_Em.wav'), label: 'Sound 1' },
-    { sound: require('./assets/soundpack/4_1_160bpm_Cm.wav'), label: 'Sound 2' },
-    { sound: require('./assets/soundpack/5_2_165bpm_Am.wav'), label: 'Sound 3' },
-    { sound: require('./assets/soundpack/6_3_165bpm_Gm.wav'), label: 'Sound 4' },
-    { sound: require('./assets/soundpack/7_4_149bpm_Cm.wav'), label: 'Sound 5' },
-    { sound: require('./assets/soundpack/9_6_155bpm_Gm.wav'), label: 'Sound 6' },
-    { sound: require('./assets/soundpack/10_7_155bpm_Fm.wav'), label: 'Sound 7' },
-    { sound: require('./assets/soundpack/12_8_160bpm_Cm.wav'), label: 'Sound 8' },
-    { sound: require('./assets/soundpack/13_9_120bpm_Am.wav'), label: 'Sound 9' },
-    { sound: require('./assets/soundpack/15_Bonus_1_120bpm_Em.wav'), label: 'Sound 10' },
-    { sound: require('./assets/soundpack/16_Bonus_2_125bpm_Gm.wav'), label: 'Sound 11' },
-    { sound: require('./assets/soundpack/17_Bonus_3_125bpm_Cm.wav'), label: 'Sound 12' },
-    { sound: require('./assets/soundpack/18_Bonus_4_139bpm_Am.wav'), label: 'Sound 13' },
-    { sound: require('./assets/soundpack/19_Bonus_5_155bpm_Am.wav'), label: 'Sound 14' },
+    { sound: require('./assets/soundpack/3_10_120bpm_Em.wav'), label: 'Bass 1' },
+    { sound: require('./assets/soundpack/5_2_165bpm_Am.wav'), label: 'Bass 2' },
+    { sound: require('./assets/soundpack/6_3_165bpm_Gm.wav'), label: 'Bass 3' },
+    { sound: require('./assets/soundpack/7_4_149bpm_Cm.wav'), label: 'Bass 4' },
+    { sound: require('./assets/soundpack/12_8_160bpm_Cm.wav'), label: 'Bass 5' },
+    { sound: require('./assets/soundpack/trap-rim-snare_135bpm.wav'), label: 'Snare 1' },
+    { sound: require('./assets/soundpack/Hi-Hat.mp3'), label: 'Hi Hat 1' },
+    { sound: require('./assets/soundpack/drum-loop.mp3'), label: 'Drum kit 1' },
+    { sound: require('./assets/soundpack/China-Cymbal-Slide.mp3'), label: 'Cymbal 1' },
+    { sound: require('./assets/soundpack/15_Bonus_1_120bpm_Em.wav'), label: 'Melody 1' },
+    { sound: require('./assets/soundpack/16_Bonus_2_125bpm_Gm.wav'), label: 'Melody 2' },
+    { sound: require('./assets/soundpack/17_Bonus_3_125bpm_Cm.wav'), label: 'Melody 3' },
+    { sound: require('./assets/soundpack/18_Bonus_4_139bpm_Am.wav'), label: 'Melody 4' },
+    { sound: require('./assets/soundpack/19_Bonus_5_155bpm_Am.wav'), label: 'Melody 5' },
   ];
 
   const renderButton = (item, index, playSound) => (

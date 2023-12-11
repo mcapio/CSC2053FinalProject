@@ -1,16 +1,16 @@
-import { Audio } from 'expo-av';
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
+import { TouchableOpacity, Text, TextInput, StyleSheet, View } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import { getDatabase, ref, push } from 'firebase/database';
-import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { getDatabase } from 'firebase/database';
+import { getStorage, ref as storageRef, uploadBytes } from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
+import { Audio } from 'expo-av';
 
-export default function RecordButton({ recordingsRef }) {
+export default function RecordButton() {
   const [recording, setRecording] = useState(null);
   const [recordingStatus, setRecordingStatus] = useState('idle');
   const [audioPermission, setAudioPermission] = useState(null);
-  const [recordingUri, setRecordingUri] = useState(null);
+  const [fileName, setFileName] = useState('');
 
   useEffect(() => {
     async function getPermission() {
@@ -58,18 +58,25 @@ export default function RecordButton({ recordingsRef }) {
         console.log('Stopping recording');
         await recording.stopAndUnloadAsync();
         const uri = recording.getURI();
-  
+
+        // Use the specified file name or a default timestamp
+        const fileNameToUse = fileName.trim() || `recording_${Date.now()}`;
+
+        // Determine the correct file extension based on your recording options
+        const fileExtension = '.m4a'; // Adjust based on your recording format
+
         // Upload the recording to Firebase Storage
         const storage = getStorage();
-        const storageReference = storageRef(storage, `recordings/${Date.now()}.m4a`);
+        const storageReference = storageRef(storage, `recordings/${fileNameToUse}${fileExtension}`);
         const response = await fetch(uri);
         const blob = await response.blob();
-  
+
         await uploadBytes(storageReference, blob);
-  
+
         // Reset states to record again
         setRecording(null);
         setRecordingStatus('stopped');
+        setFileName('');
       } else {
         console.log('Recording is not in progress or already stopped');
       }
@@ -77,7 +84,6 @@ export default function RecordButton({ recordingsRef }) {
       console.error('Failed to stop recording', error);
     }
   }
-  
 
   async function handleRecordingButtonPress() {
     if (recording) {
@@ -87,13 +93,21 @@ export default function RecordButton({ recordingsRef }) {
     }
   }
 
-  
-
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={handleRecordingButtonPress}>
         <FontAwesome name={recording ? 'stop-circle' : 'circle'} size={20} color="white" />
       </TouchableOpacity>
+      {recordingStatus === 'stopped' && (
+        <View style={styles.fileNameInputContainer}>
+          <TextInput
+            style={styles.fileNameInput}
+            placeholder="Enter file name"
+            value={fileName}
+            onChangeText={(text) => setFileName(text)}
+          />
+        </View>
+      )}
       <Text style={styles.recordingStatusText}>{`Recording status: ${recordingStatus}`}</Text>
     </View>
   );
@@ -114,22 +128,33 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     marginBottom: 10,
   },
+  fileNameInputContainer: {
+    marginTop: 10,
+  },
+  fileNameInput: {
+    height: 40,
+    width: 200,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+  },
   recordingStatusText: {
     marginTop: 16,
+    color: 'white', 
   },
 });
 
 // Firebase configuration and initialization
 const firebaseConfig = {
-    apiKey: "AIzaSyDMuTeUMrkbjwO-9u-hsgF92ZAqs1SrB8I",
-    authDomain: "beatmaker-app.firebaseapp.com",
-    projectId: "beatmaker-app",
-    storageBucket: "beatmaker-app.appspot.com",
-    messagingSenderId: "327103737329",
-    appId: "1:327103737329:web:8da4cf338476321b52a850",
-    measurementId: "G-EEK9DZ86TL"
-  };
+  apiKey: "AIzaSyDMuTeUMrkbjwO-9u-hsgF92ZAqs1SrB8I",
+  authDomain: "beatmaker-app.firebaseapp.com",
+  projectId: "beatmaker-app",
+  storageBucket: "beatmaker-app.appspot.com",
+  messagingSenderId: "327103737329",
+  appId: "1:327103737329:web:8da4cf338476321b52a850",
+  measurementId: "G-EEK9DZ86TL",
+};
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
-const recordingsRef = ref(database, 'recordings');
