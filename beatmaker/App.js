@@ -5,9 +5,7 @@ import RecordButton from './RecordButton';
 import { onValue, off, getDatabase, ref, getStorage, initializeApp, uploadBytes } from 'firebase/database';
 import { initializeApp as initializeFirebaseApp } from 'firebase/app';
 import { getStorage as getFirebaseStorage } from 'firebase/storage';
-
-// Import your background image
-import backgroundImage from './assets/recording-studio-background.jpg'; // Replace with the actual path
+import backgroundImage from './assets/recording-studio-background.jpg';
 
 export default function App() {
   const { soundData, renderButton, playSound, stopAllSounds } = SoundList();

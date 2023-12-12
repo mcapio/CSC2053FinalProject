@@ -59,11 +59,9 @@ export default function RecordButton() {
         await recording.stopAndUnloadAsync();
         const uri = recording.getURI();
 
-        // Use the specified file name or a default timestamp
         const fileNameToUse = fileName.trim() || `recording_${Date.now()}`;
 
-        // Determine the correct file extension based on your recording options
-        const fileExtension = '.m4a'; // Adjust based on your recording format
+        const fileExtension = '.m4a'; 
 
         // Upload the recording to Firebase Storage
         const storage = getStorage();
@@ -145,7 +143,6 @@ const styles = StyleSheet.create({
   },
 });
 
-// Firebase configuration and initialization
 const firebaseConfig = {
   apiKey: "AIzaSyDMuTeUMrkbjwO-9u-hsgF92ZAqs1SrB8I",
   authDomain: "beatmaker-app.firebaseapp.com",
